@@ -46,7 +46,7 @@ export class Encoder<ContextType> {
       this.encodeNil();
     } else if (typeof object === "boolean") {
       this.encodeBoolean(object);
-    } else if (typeof object === "number") {
+    } else if (typeof object === "number" || typeof object === "bigint") {
       this.encodeNumber(object);
     } else if (typeof object === "string") {
       this.encodeString(object);
@@ -85,49 +85,50 @@ export class Encoder<ContextType> {
       this.writeU8(0xc3);
     }
   }
-  private encodeNumber(object: number) {
-    if (Number.isSafeInteger(object) && !this.forceIntegerToFloat) {
+  private encodeNumber(object: number | bigint) {
+    const number = Number(object);
+    if (Number.isInteger(number) && !this.forceIntegerToFloat) {
       if (object >= 0) {
         if (object < 0x80) {
           // positive fixint
-          this.writeU8(object);
+          this.writeU8(number);
         } else if (object < 0x100) {
           // uint 8
           this.writeU8(0xcc);
-          this.writeU8(object);
+          this.writeU8(number);
         } else if (object < 0x10000) {
           // uint 16
           this.writeU8(0xcd);
-          this.writeU16(object);
+          this.writeU16(number);
         } else if (object < 0x100000000) {
           // uint 32
           this.writeU8(0xce);
-          this.writeU32(object);
+          this.writeU32(number);
         } else {
           // uint 64
           this.writeU8(0xcf);
-          this.writeU64(object);
+          this.writeU64(BigInt(object));
         }
       } else {
         if (object >= -0x20) {
           // nagative fixint
-          this.writeU8(0xe0 | (object + 0x20));
+          this.writeU8(0xe0 | (number + 0x20));
         } else if (object >= -0x80) {
           // int 8
           this.writeU8(0xd0);
-          this.writeI8(object);
+          this.writeI8(number);
         } else if (object >= -0x8000) {
           // int 16
           this.writeU8(0xd1);
-          this.writeI16(object);
+          this.writeI16(number);
         } else if (object >= -0x80000000) {
           // int 32
           this.writeU8(0xd2);
-          this.writeI32(object);
+          this.writeI32(number);
         } else {
           // int 64
           this.writeU8(0xd3);
-          this.writeI64(object);
+          this.writeU64(BigInt(object));
         }
       }
     } else {
@@ -135,11 +136,11 @@ export class Encoder<ContextType> {
       if (this.forceFloat32) {
         // float 32
         this.writeU8(0xca);
-        this.writeF32(object);
+        this.writeF32(number);
       } else {
         // float 64
         this.writeU8(0xcb);
-        this.writeF64(object);
+        this.writeF64(number);
       }
     }
   }
@@ -386,14 +387,14 @@ export class Encoder<ContextType> {
     this.pos += 8;
   }
 
-  private writeU64(value: number) {
+  private writeU64(value: bigint) {
     this.ensureBufferSizeToWrite(8);
 
     setUint64(this.view, this.pos, value);
     this.pos += 8;
   }
 
-  private writeI64(value: number) {
+  private writeI64(value: bigint) {
     this.ensureBufferSizeToWrite(8);
 
     setInt64(this.view, this.pos, value);

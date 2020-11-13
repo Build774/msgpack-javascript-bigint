@@ -29,7 +29,7 @@ const TEST_TYPES = {
   bool: 1,
   map: 1,
   nil: 1,
-  number: 1,
+  number: 0,
   string: 1,
   timestamp: 1,
 };
@@ -98,7 +98,7 @@ describe("msgpack-test-suite", () => {
         acc[`k${i}`] = i;
         return acc;
       }, {}),
-      MIXED: new Array(0x10).fill(Number.MAX_SAFE_INTEGER),
+      MIXED: new Array(0x10).fill(BigInt(Number.MAX_SAFE_INTEGER)),
     } as Record<string, any>;
 
     for (const name of Object.keys(SPECS)) {

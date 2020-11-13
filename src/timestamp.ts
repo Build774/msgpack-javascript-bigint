@@ -37,7 +37,7 @@ export function encodeTimeSpecToTimestamp({ sec, nsec }: TimeSpec): Uint8Array {
     const rv = new Uint8Array(12);
     const view = new DataView(rv.buffer);
     view.setUint32(0, nsec);
-    setInt64(view, 4, sec);
+    setInt64(view, 4, BigInt(sec));
     return rv;
   }
 }
@@ -86,7 +86,7 @@ export function decodeTimestampToTimeSpec(data: Uint8Array): TimeSpec {
     case 12: {
       // timestamp 96 = { nsec32 (unsigned), sec64 (signed) }
 
-      const sec = getInt64(view, 4);
+      const sec = Number(getInt64(view, 4));
       const nsec = view.getUint32(0);
       return { sec, nsec };
     }

@@ -78,7 +78,7 @@ export class Decoder<ContextType> {
     private readonly maxMapLength = DEFAULT_MAX_LENGTH,
     private readonly maxExtLength = DEFAULT_MAX_LENGTH,
     private readonly keyDecoder: KeyDecoder | null = sharedCachedKeyDecoder,
-  ) { }
+  ) {}
 
   private reinitializeState() {
     this.totalPos = 0;
@@ -579,13 +579,13 @@ export class Decoder<ContextType> {
     return value;
   }
 
-  private readU64(): number {
+  private readU64(): bigint {
     const value = getUint64(this.view, this.pos);
     this.pos += 8;
     return value;
   }
 
-  private readI64(): number {
+  private readI64(): bigint {
     const value = getInt64(this.view, this.pos);
     this.pos += 8;
     return value;

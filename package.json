@@ -1,5 +1,5 @@
 {
-  "name": "@msgpack/msgpack",
+  "name": "msgpack-bigint",
   "version": "2.3.0",
   "description": "MessagePack for JavaScript/ECMA-262",
   "author": "The MessagePack community",
