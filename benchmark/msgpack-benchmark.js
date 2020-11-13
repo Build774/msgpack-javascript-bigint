@@ -7,7 +7,7 @@ const fs = require("fs");
 const msgpack = require("../src");
 
 const implementations = {
-  "@msgpack/msgpack": {
+  "msgpack-bigint": {
     encode: require("..").encode,
     decode: require("..").decode,
   },

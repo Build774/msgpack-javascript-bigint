@@ -1,5 +1,5 @@
 import assert from "assert";
-import { encode, decodeStream } from "@msgpack/msgpack";
+import { encode, decodeStream } from "msgpack-bigint";
 
 describe("decodeStream", () => {
   it("decodes stream (array8)", async () => {

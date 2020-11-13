@@ -1,8 +1,8 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2020",
     "downlevelIteration": true,
-    "outDir": "./build/es5"
+    "outDir": "./build/es2020"
   }
 }

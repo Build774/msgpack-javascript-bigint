@@ -21,7 +21,7 @@ export default function configure(config: any) {
     browsers: ["ChromeHeadless", "FirefoxHeadless"],
 
     basePath: "",
-    frameworks: ["mocha"],
+    frameworks: ["mocha", "webpack"],
     files: ["./test/karma-run.ts"],
     exclude: [],
     preprocessors: {
@@ -38,18 +38,16 @@ export default function configure(config: any) {
 
     webpack: {
       mode: "production",
-
       // Handles NodeJS polyfills
       // https://webpack.js.org/configuration/node
       // Note that the dependencies in https://github.com/webpack/node-libs-browser are sometimes too old.
       node: {
-        assert: false,
-        util: false,
+        global: true,
       },
       resolve: {
         extensions: [".ts", ".tsx", ".mjs", ".js", ".json", ".wasm"],
         alias: {
-          "@msgpack/msgpack": path.resolve(__dirname, "src"),
+          "msgpack-bigint": path.resolve(__dirname, "src"),
         },
       },
       module: {
@@ -65,7 +63,12 @@ export default function configure(config: any) {
           },
         ],
       },
-      plugins: [],
+      plugins: [
+        new webpack.ProvidePlugin({
+          process: "process/browser",
+          Buffer: ["buffer", "Buffer"],
+        }),
+      ],
       optimization: {
         minimize: false,
       },

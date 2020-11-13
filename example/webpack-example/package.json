@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@msgpack/msgpack": "../../"
+    "msgpack-bigint": "../../"
   },
   "devDependencies": {
     "lodash": "^4.17.20",

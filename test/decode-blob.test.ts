@@ -1,6 +1,6 @@
 import assert from "assert";
 import "web-streams-polyfill";
-import { encode, decode, decodeAsync } from "@msgpack/msgpack";
+import { encode, decode, decodeAsync } from "msgpack-bigint";
 
 const MyBlob = typeof Blob !== "undefined" ? Blob : require("blob-polyfill").Blob;
 

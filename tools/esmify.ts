@@ -2,17 +2,27 @@
 /* eslint-disable no-console */
 
 import fs from "fs";
+import path from "path";
 
-const files = process.argv.slice(2);
+function listJS(d: string): Array<string> {
+  return fs
+    .readdirSync(d)
+    .filter((file) => file.endsWith(".js"))
+    .map((file) => path.join(d, file));
+}
+
+const dir = process.argv[2];
+
+const files = [...listJS(dir), ...listJS(path.join(dir, "utils"))];
 
 for (const file of files) {
   const fileMjs = file.replace(/\.js$/, ".mjs");
   console.info(`Processing ${file} => ${fileMjs}`);
   // .js => .mjs
   const content = fs.readFileSync(file).toString("utf-8");
-  const newContent = content.replace(/\bfrom "([^"]+)";/g, 'from "$1.mjs";')
-    .replace(/\/\/# sourceMappingURL=(.+)\.js\.map$/,
-      "//# sourceMappingURL=$1.mjs.map");
+  const newContent = content
+    .replace(/\bfrom "([^"]+)";/g, 'from "$1.mjs";')
+    .replace(/\/\/# sourceMappingURL=(.+)\.js\.map$/, "//# sourceMappingURL=$1.mjs.map");
   fs.writeFileSync(fileMjs, newContent);
   fs.unlinkSync(file);
 

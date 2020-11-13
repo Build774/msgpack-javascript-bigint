@@ -1,4 +1,4 @@
-import { encode } from "@msgpack/msgpack";
+import { encode } from "msgpack-bigint";
 
 console.log(encode(null));
 

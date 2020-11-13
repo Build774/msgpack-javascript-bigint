@@ -1,7 +1,7 @@
 {
-  "extends": "./tsconfig.es5.json",
+  "extends": "./tsconfig.es2020.json",
   "compilerOptions": {
-    "module": "esnext",
+    "module": "ESNext",
     "noEmitOnError": true,
     "outDir": "./build/webpack"
   },

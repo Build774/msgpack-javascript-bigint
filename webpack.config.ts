@@ -1,5 +1,4 @@
 import path from "path";
-// @ts-expect-error
 import webpack from "webpack";
 import _ from "lodash";
 // @ts-expect-error
@@ -10,7 +9,7 @@ const config = {
 
   entry: "./src/index.ts",
   output: {
-    path: path.resolve(__dirname, "dist.es5+umd"),
+    path: path.resolve(__dirname, "dist.es2020+umd"),
     library: "MessagePack",
     libraryTarget: "umd",
     globalObject: "this",
@@ -33,7 +32,7 @@ const config = {
 
   plugins: [
     new CheckEsVersionPlugin({
-      esVersion: 5, // for IE11 support
+      esVersion: 2020,
     }),
     new webpack.DefinePlugin({
       "process.env.TEXT_ENCODING": "undefined",

@@ -5,20 +5,20 @@
   "author": "The MessagePack community",
   "license": "ISC",
   "main": "./dist/index.js",
-  "module": "./dist.es5+esm/index.mjs",
-  "cdn": "./dist.es5+umd/msgpack.min.js",
-  "unpkg": "./dist.es5+umd/msgpack.min.js",
+  "module": "./dist.es2020+esm/index.mjs",
+  "cdn": "./dist.es2020+umd/msgpack.min.js",
+  "unpkg": "./dist.es2020+umd/msgpack.min.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
     "build": "npm publish --dry-run",
-    "prepare": "npm run clean && webpack && tsc --build tsconfig.dist.json tsconfig.dist.es5+esm.json && ts-node tools/esmify.ts dist.es5+esm/*.js dist.es5+esm/*/*.js",
-    "prepublishOnly": "run-p 'test:dist:*' && npm run test:browser",
+    "prepare": "npm run clean && webpack && tsc --build tsconfig.dist.json tsconfig.dist.es2020+esm.json && ts-node tools/esmify.ts dist.es2020+esm",
+    "prepublishOnly": "run-p \"test:dist:*\" && npm run test:browser",
     "clean": "rimraf build dist dist.*",
     "test": "mocha 'test/**/*.test.ts'",
-    "test:purejs": "TEXT_ENCODING=never mocha 'test/**/*.test.ts'",
-    "test:te": "TEXT_ENCODING=force mocha 'test/**/*.test.ts'",
-    "test:dist:purejs": "TS_NODE_PROJECT=tsconfig.test-dist-es5-purejs.json npm run test:purejs -- --reporter=dot",
+    "test:purejs": "cross-env TEXT_ENCODING=never mocha 'test/**/*.test.ts'",
+    "test:te": "cross-env TEXT_ENCODING=force mocha 'test/**/*.test.ts'",
+    "test:dist:purejs": "cross-env TS_NODE_PROJECT=tsconfig.test-dist-es2020-purejs.json npm run test:purejs -- --reporter=dot",
     "test:cover": "npm run cover:clean && npm-run-all 'test:cover:*' && npm run cover:report",
     "test:cover:purejs": "npx nyc --no-clean npm run test:purejs",
     "test:cover:te": "npx nyc --no-clean npm run test:te",
@@ -61,6 +61,7 @@
     "assert": "latest",
     "blob-polyfill": "latest",
     "core-js": "latest",
+    "cross-env": "^7.0.2",
     "eslint": "latest",
     "eslint-config-prettier": "latest",
     "eslint-plugin-import": "latest",
@@ -72,7 +73,7 @@
     "karma-mocha": "latest",
     "karma-sauce-launcher": "latest",
     "karma-sourcemap-loader": "latest",
-    "karma-webpack": "latest",
+    "karma-webpack": "github:appzuka/karma-webpack#next",
     "lodash": "latest",
     "mocha": "latest",
     "msgpack-test-js": "latest",
@@ -84,14 +85,17 @@
     "tsconfig-paths": "latest",
     "typescript": "latest",
     "web-streams-polyfill": "latest",
-    "webpack": "^4",
+    "webpack": "^5",
     "webpack-cli": "latest"
   },
-  "dependencies": {},
   "files": [
     "src/**/*.*",
     "dist/**/*.*",
-    "dist.es5+umd/**/*.*",
-    "dist.es5+esm/**/*.*"
-  ]
+    "dist.es2020+umd/**/*.*",
+    "dist.es2020+esm/**/*.*"
+  ],
+  "dependencies": {
+    "buffer": "^5.6.0",
+    "process": "^0.11.10"
+  }
 }

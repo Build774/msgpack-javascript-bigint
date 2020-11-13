@@ -16,7 +16,7 @@ This library is a universal JavaScript, meaning it is compatible with all the ma
 
 ```typescript
 import { deepStrictEqual } from "assert";
-import { encode, decode } from "@msgpack/msgpack";
+import { encode, decode } from "msgpack-bigint";
 
 const object = {
   nil: null,
@@ -92,7 +92,7 @@ It encodes `data` and returns a byte array as `Uint8Array`, throwing errors if `
 for example:
 
 ```typescript
-import { encode } from "@msgpack/msgpack";
+import { encode } from "msgpack-bigint";
 
 const encoded: Uint8Array = encode({ foo: "bar" });
 console.log(encoded);
@@ -101,7 +101,7 @@ console.log(encoded);
 If you'd like to convert the uint8array to a NodeJS `Buffer`, use `Buffer.from(arrayBuffer, offset, length)` in order not to copy the underlying `ArrayBuffer`, while `Buffer.from(uint8array)` copies it:
 
 ```typescript
-import { encode } from "@msgpack/msgpack";
+import { encode } from "msgpack-bigint";
 
 const encoded: Uint8Array = encode({ foo: "bar" });
 
@@ -132,7 +132,7 @@ It decodes `buffer` encoded in MessagePack, and returns a decoded object as `ukn
 for example:
 
 ```typescript
-import { decode } from "@msgpack/msgpack";
+import { decode } from "msgpack-bigint";
 
 const encoded: Uint8Array;
 const object = decode(encoded);
@@ -164,7 +164,7 @@ It decodes `stream` in an async iterable of byte arrays, and returns decoded obj
 This function is designed to work with whatwg `fetch()` like this:
 
 ```typescript
-import { decodeAsync } from "@msgpack/msgpack";
+import { decodeAsync } from "msgpack-bigint";
 
 const MSGPACK_TYPE = "application/x-msgpack";
 
@@ -185,7 +185,7 @@ It throws errors when the input is not an array-family.
 for example:
 
 ```typescript
-import { decodeArrayStream } from "@msgpack/msgpack";
+import { decodeArrayStream } from "msgpack-bigint";
 
 const stream: AsyncIterator<Uint8Array>;
 
@@ -205,7 +205,7 @@ In other words, it decodes an unlimited stream and emits an item one by one.
 for example:
 
 ```typescript
-import { decodeStream } from "@msgpack/msgpack";
+import { decodeStream } from "msgpack-bigint";
 
 const stream: AsyncIterator<Uint8Array>;
 
@@ -221,7 +221,7 @@ for await (const item of decodeStream(stream)) {
 
 ```typescript
 import { deepStrictEqual } from "assert";
-import { Encoder, Decoder } from "@msgpack/msgpack";
+import { Encoder, Decoder } from "msgpack-bigint";
 
 const encoder = new Encoder();
 const decoder = new Decoder();
@@ -242,7 +242,7 @@ To handle [MessagePack Extension Types](https://github.com/msgpack/msgpack/blob/
 Here is an example to setup custom extension types that handles `Map` and `Set` classes in TypeScript:
 
 ```typescript
-import { encode, decode, ExtensionCodec } from "@msgpack/msgpack";
+import { encode, decode, ExtensionCodec } from "msgpack-bigint";
 
 const extensionCodec = new ExtensionCodec();
 
@@ -291,7 +291,7 @@ Not that extension types for custom objects must be `[0, 127]`, while `[-1, -128
 When using an extension codec, it may be necessary to keep encoding/decoding state, to keep track of which objects got encoded/re-created. To do this, pass a `context` to the `EncodeOptions` and `DecodeOptions` (and if using typescript, type the `ExtensionCodec` too). Don't forget to pass the `{extensionCodec, context}` along recursive encoding/decoding:
 
 ```typescript
-import { encode, decode, ExtensionCodec } from "@msgpack/msgpack";
+import { encode, decode, ExtensionCodec } from "msgpack-bigint";
 
 class MyContext {
   track(object: any) { /*...*/ }
@@ -322,7 +322,7 @@ extensionCodec.register({
 });
 
 // and later
-import { encode, decode } from "@msgpack/msgpack";
+import { encode, decode } from "msgpack-bigint";
 
 const context = new MyContext();
 
@@ -336,7 +336,7 @@ This library does not handle BigInt by default, but you can handle it with `Exte
 
 ```typescript
 import { deepStrictEqual } from "assert";
-import { encode, decode, ExtensionCodec } from "@msgpack/msgpack";
+import { encode, decode, ExtensionCodec } from "msgpack-bigint";
 
 const BIGINT_EXT_TYPE = 0; // Any in 0-127
 const extensionCodec = new ExtensionCodec();
@@ -377,7 +377,7 @@ import {
   EXT_TIMESTAMP,
   encodeTimeSpecToTimestamp,
   decodeTimestampToTimeSpec,
-} from "@msgpack/msgpack";
+} from "msgpack-bigint";
 
 const extensionCodec = new ExtensionCodec();
 extensionCodec.register({
@@ -506,8 +506,8 @@ buf = JSON.stringify(obj);                                        | 1249800 |  5
 obj = JSON.parse(buf);                                            | 1648000 |  5000 |  329600
 buf = require("msgpack-lite").encode(obj);                        |  603500 |  5000 |  120700
 obj = require("msgpack-lite").decode(buf);                        |  315900 |  5000 |   63180
-buf = require("@msgpack/msgpack").encode(obj);                    |  945400 |  5000 |  189080
-obj = require("@msgpack/msgpack").decode(buf);                    |  770200 |  5000 |  154040
+buf = require("msgpack-bigint").encode(obj);                    |  945400 |  5000 |  189080
+obj = require("msgpack-bigint").decode(buf);                    |  770200 |  5000 |  154040
 buf = /* @msgpack/msgpack */ encoder.encode(obj);                 | 1162600 |  5000 |  232520
 obj = /* @msgpack/msgpack */ decoder.decode(buf);                 |  787800 |  5000 |  157560
 
