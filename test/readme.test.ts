@@ -1,5 +1,5 @@
 import { deepStrictEqual } from "assert";
-import { encode, decode } from "msgpack-bigint";
+import { encode, decode } from "@build774/msgpack-bigint";
 
 describe("README", () => {
   context("## Synopsis", () => {

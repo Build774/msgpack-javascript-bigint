@@ -47,7 +47,7 @@ export default function configure(config: any) {
       resolve: {
         extensions: [".ts", ".tsx", ".mjs", ".js", ".json", ".wasm"],
         alias: {
-          "msgpack-bigint": path.resolve(__dirname, "src"),
+          "@build774/msgpack-bigint": path.resolve(__dirname, "src"),
         },
       },
       module: {

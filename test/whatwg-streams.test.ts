@@ -1,5 +1,5 @@
 import { deepStrictEqual } from "assert";
-import { decodeAsync, encode, decodeArrayStream } from "msgpack-bigint";
+import { decodeAsync, encode, decodeArrayStream } from "@build774/msgpack-bigint";
 import { ReadableStream as PonyReadableStream } from "web-streams-polyfill/ponyfill";
 const isReadableStreamConstructorAvailable: boolean = (() => {
   try {

@@ -14,6 +14,7 @@ jobs:
       with:
         node-version: '14'
         registry-url: 'https://npm.pkg.github.com'
+        scope: '@build774'
 
     - run: |
         mkdir -p ~/.ssh
@@ -21,6 +22,7 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H github.com >> ~/.ssh/known_hosts
         npm ci
+        echo @build774:registry=https://npm.pkg.github.com/ >> .npmrc
         npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

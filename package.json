@@ -1,5 +1,5 @@
 {
-  "name": "msgpack-bigint",
+  "name": "@build774/msgpack-bigint",
   "version": "2.3.0",
   "description": "MessagePack for JavaScript/ECMA-262",
   "author": "The MessagePack community",
@@ -37,10 +37,10 @@
   "homepage": "https://msgpack.org/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/msgpack/msgpack-javascript.git"
+    "url": "https://github.com/Build774/msgpack-javascript-bigint.git"
   },
   "bugs": {
-    "url": "https://github.com/msgpack/msgpack-javascript/issues"
+    "url": "https://github.com/Build774/msgpack-javascript-bigint/issues"
   },
   "keywords": [
     "msgpack",

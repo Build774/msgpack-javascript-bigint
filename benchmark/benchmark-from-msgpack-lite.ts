@@ -60,8 +60,8 @@ if (msgpack_node) {
 }
 
 if (msgpack_msgpack) {
-  buf = bench('buf = require("msgpack-bigint").encode(obj);', msgpack_msgpack.encode, data);
-  obj = bench('obj = require("msgpack-bigint").decode(buf);', msgpack_msgpack.decode, buf);
+  buf = bench('buf = require("@build774/msgpack-bigint").encode(obj);', msgpack_msgpack.encode, data);
+  obj = bench('obj = require("@build774/msgpack-bigint").decode(buf);', msgpack_msgpack.decode, buf);
   runTest(obj);
 
   const encoder = new msgpack_msgpack.Encoder();
