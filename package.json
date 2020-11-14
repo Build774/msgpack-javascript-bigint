@@ -73,7 +73,7 @@
     "karma-mocha": "latest",
     "karma-sauce-launcher": "latest",
     "karma-sourcemap-loader": "latest",
-    "karma-webpack": "github:appzuka/karma-webpack#next",
+    "karma-webpack": "github:build774/karma-webpack#next",
     "lodash": "latest",
     "mocha": "latest",
     "msgpack-test-js": "latest",
