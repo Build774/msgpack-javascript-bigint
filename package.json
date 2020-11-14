@@ -13,7 +13,7 @@
   "scripts": {
     "build": "npm publish --dry-run",
     "prepare": "npm run clean && webpack && tsc --build tsconfig.dist.json tsconfig.dist.es2020+esm.json && ts-node tools/esmify.ts dist.es2020+esm",
-    "prepublishOnly": "run-p \"test:dist:*\" && npm run test:browser",
+    "prepublishOnly": "run-p \"test:dist:*\"",
     "clean": "npx rimraf build dist dist.*",
     "test": "mocha 'test/**/*.test.ts'",
     "test:purejs": "cross-env TEXT_ENCODING=never mocha 'test/**/*.test.ts'",

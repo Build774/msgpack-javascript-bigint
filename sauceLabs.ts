@@ -18,7 +18,7 @@ export type SauceLauncher = {
 };
 
 export const sauceLabs = {
-  testName: "@msgpack/msgpack unit tests",
+  testName: "msgpack-javascript unit tests",
   tags: ["msgpack-javascript"],
   recordVideo: IS_LOCAL,
   recordScreenshots: IS_LOCAL,
